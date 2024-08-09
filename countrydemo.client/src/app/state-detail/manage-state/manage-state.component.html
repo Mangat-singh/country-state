@@ -1,0 +1,50 @@
+<div class="container mt-4">
+    <h2>{{ isEdit ? 'Update' : 'Add' }} State</h2>
+    <form class="form-ds" [formGroup]="stateForm" (ngSubmit)="onSubmit()">
+      <div class="form-group row row-margin">
+        <label for="CountryId" class="col-sm-2 col-form-label">Country:</label>
+        <div class="col-sm-10">
+          <select id="countryId" class="form-control" formControlName="countryId" required>
+            <option value="0">Select Country</option>
+            <option *ngFor="let country of countries" [value]="country.countryId">
+              {{ country.name }}
+            </option>
+          </select>
+        </div> 
+        <div *ngIf="submitted && (f['countryId'].value===0)" class="text-danger">
+          <div class="valid-ds">
+            Country name is required.
+          </div>
+        </div>
+      </div>
+      <div class="form-group row row-margin">
+        <label for="name" class="col-sm-2 col-form-label">Name:</label>
+        <div class="col-sm-10">
+          <input type="text" id="name" class="form-control" formControlName="name" maxlength="50" required placeholder="Enter name">
+        </div>
+        <div *ngIf="submitted|| (f['name'].invalid && (f['name'].dirty || f['name'].touched))" class="text-danger">
+          <div class="valid-ds" *ngIf="f['name'].errors?.required">
+            Name is required.
+          </div>
+        </div>
+      </div>
+      <div class="form-group row row-margin">
+        <label for="code" class="col-sm-2 col-form-label">Code:</label>
+        <div class="col-sm-10">
+          <input type="text" id="code" class="form-control" formControlName="code" maxlength="20" required placeholder="Enter code">
+        </div>
+        <div *ngIf="submitted|| (f['code'].invalid && (f['code'].dirty || f['code'].touched))" class="text-danger">
+          <div class="valid-ds" *ngIf="f['code'].errors?.required">
+            Code is required.
+          </div>
+        </div>
+      </div>
+      <div class="form-group row row-margin">
+        <div class="col-sm-12">
+          <button type="submit" class="btn btn-success me-4">{{ isEdit ? 'Update' : 'Add' }} State</button>
+          <button type="button" class="btn btn-success" routerLink="/states"> Cancel</button>
+        </div>
+      </div>
+    </form>
+  </div>
+  
